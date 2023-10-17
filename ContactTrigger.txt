@@ -1,0 +1,18 @@
+trigger ContactTrigger on Contact( after insert, after update, after delete, after undelete ) {
+
+    if( Trigger.isAfter ) {
+
+        if( Trigger.isInsert ) {
+            ContactTriggerHandler.updateCount( trigger.new, null );
+        }
+        else if( Trigger.isUpdate) {
+            ContactTriggerHandler.updateCount( trigger.new, trigger.oldMap );
+        }
+        else if( Trigger.isUndelete) {
+            ContactTriggerHandler.updateCount( trigger.new, null );
+        }
+        else if( Trigger.isDelete ) {
+            ContactTriggerHandler.updateCount( trigger.old, null );
+        }
+    }
+}

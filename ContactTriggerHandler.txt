@@ -1,0 +1,22 @@
+public class ContactTriggerHandler {
+    public static void updateCount(List<Contact> conlist )
+    {
+           set<Id> sid = new Set<id>();
+        for(contact c : conlist){
+                    if(c.accountid!= null){
+                    sid.add(c.AccountId);
+                }
+                }
+                Map< id , Integer> mMap = new Map<id , Integer>();
+           for(Account ac : [select name , (select lastName from contacts ) from account where id In:sid])
+            {
+                mMap.put(ac.Id , ac.contacts.size());
+            }
+
+                Set<id> s = new Set<id>(mMap.keyset());
+                list<Account> ac = new List<Account>();
+           for(Id ids : s){
+                   ac.add(new Account(id = ids , KaranJain__countOfContact__c = mMap.get(ids)));
+            }
+        update ac;
+     }
